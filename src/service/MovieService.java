@@ -75,24 +75,30 @@ public class MovieService {
     //admin services:
 
     public static void addMovie(int id, String title, String genre, int rank){
-//        for(Movie m : movieRepo.movieList){
-//            if(m.getId() )
-//        }
-        Movie m = new Movie(id, title, genre, rank);
-        movieRepo.save(m);
+        for(Movie m : movieRepo.movieList){
+            if(m.getId() == id) {
+                System.out.println("Error: Movie ID " + id + " already exists in TMDb!");
+                return;
+            }
+        }
+        Movie newMovie = new Movie(id, title, genre, rank);
+        movieRepo.save(newMovie);
+        System.out.println("Movie '" + title + "' added successfully!");
     }
 
-    public void deleteMovie(int id){
+    public void deleteMovie(int id) {
         Movie found = null;
-        for(Movie m : movieRepo.movieList){
-            if(m.getId() != id){
-                System.out.println("There is no Movie with the id: "+id);
-            }
-            else if(m.getId() == id){
+        for (Movie m : movieRepo.movieList) {
+            if (m.getId() == id) {
                 found = m;
+                break;
             }
-            
+        }
+        if (found != null) {
             movieRepo.movieList.remove(found);
+            System.out.println("Movie Deleted Successfully :(");
+        } else {
+            System.out.println("There is no Movie with the id: " + id);
         }
     }
 }
