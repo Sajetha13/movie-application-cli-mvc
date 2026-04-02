@@ -21,16 +21,16 @@ public class UserService {
         }
     }
 
-    public void displaySubscribedUsers(){
+    public void displaySubscribedUsers() {
         boolean found = false;
-        for(User s : userRepo.userList){
-            if (s.setSubscribed(true)) {
-                System.out.println(s.getId()+" : "+s.getName()+" ("+((s.isSubscribed()) ?  "Subscribed" : "Not Subsribed")+")");
+        for (User s : userRepo.userList) {
+            if (s.isSubscribed()) {
+                System.out.println(s.getId() + " : " + s.getName() + " (Subscribed)");
                 found = true;
             }
         }
-        if(found == false){
-            System.out.println("No User has Subscribed");
+        if (!found) {
+            System.out.println("No User has Subscribed yet.");
         }
     }
 }
